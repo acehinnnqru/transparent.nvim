@@ -17,7 +17,7 @@ local function clear_group(group)
     local groups = type(group) == "string" and { group } or group
     for _, v in ipairs(groups) do
         if not vim.tbl_contains(config.exclude_groups, v) then
-            local ok, prev_attrs = pcall(vim.api.nvim_get_hl, v, { link = true })
+            local ok, prev_attrs = pcall(vim.api.nvim_get_hl, 0, { name = v })
             vim.notify(prev_attrs, vim.log.levels.WARN, {})
             if ok and (prev_attrs.background or prev_attrs.bg or prev_attrs.ctermbg) then
                 local attrs = vim.tbl_extend("force", prev_attrs, { bg = "NONE", ctermbg = "NONE" })
